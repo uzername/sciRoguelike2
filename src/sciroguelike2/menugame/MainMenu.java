@@ -68,7 +68,7 @@ public class MainMenu {
         if (menuIndex==menuItems.length-1) { //quit game menu item
             //passing global signal. it will dispatched/activated in main game cycle. 
             //Exiting right here is a bad practice, although saves some CPU 
-            System.out.println("sent quitgame signal");
+            //System.out.println("sent quitgame signal");
             sciroguelike2.algodata.GameStateResolver.changeGameState(sciroguelike2.algodata.GameStates.QUITGAME);
         }
         if (menuIndex==0) { //'new game' menu item
