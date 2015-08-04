@@ -24,7 +24,7 @@ public class PrototypeCollector {
      */
     public static void loadMapTilesData() {
         mapTilesData.add(new MapTilePrototype(" ".charAt(0), Color.red, Color.blue, "empty"));
-        mapTilesData.add(new MapTilePrototype(".".charAt(0), Color.red, Color.blue, "floor"));
+        mapTilesData.add(new MapTilePrototype(".".charAt(0), Color.white, Color.black, "floor"));
         MapTilePrototype wallPrototype = new MapTilePrototype("#".charAt(0), Color.white, Color.blue, "wall");
         for (int i=0; i<wallPrototype.passSpeed.size(); i++) {
             wallPrototype.passSpeed.set(i, new Float(0.0)); 

@@ -37,6 +37,7 @@ public class SciRoguelike2 {
             }
         }
         */
+        sciroguelike2.algodata.GeneralCoreData.defineChunkSize(127, 127);
         keyListener = new SquidKey(false, SquidKey.CaptureType.DOWN);
         sciroguelike2.algodata.GeneralCoreData.initGraphics();
         

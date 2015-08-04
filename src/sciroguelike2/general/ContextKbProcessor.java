@@ -29,19 +29,26 @@ public class ContextKbProcessor{
     public static void performAndChooseAction(KeyEvent k) {
         //System.out.println("inside performAndChooseAction: "+processKeyCode);
         Integer processKeyCode = k.getExtendedKeyCode();
+        sciroguelike2.algodata.GameStates currGameState = sciroguelike2.algodata.GameStateResolver.getCurrGameState();
         switch (processKeyCode) {
             case (KeyEvent.VK_Q): {
-                if (sciroguelike2.algodata.GameStateResolver.getCurrGameState()==sciroguelike2.algodata.GameStates.MAINMENU) {
+                if (currGameState==sciroguelike2.algodata.GameStates.MAINMENU) {
                     //quit game by pressing Q key, while in main menu
                     sciroguelike2.algodata.GameStateResolver.changeGameState(sciroguelike2.algodata.GameStates.QUITGAME);
                 }
                 break;
             }
             case (KeyEvent.VK_UP): {
-                if (sciroguelike2.algodata.GameStateResolver.getCurrGameState()==sciroguelike2.algodata.GameStates.MAINMENU) {
+                if (currGameState==sciroguelike2.algodata.GameStates.MAINMENU) {
                     //move to previous menu item and highlight it
                     kbPrevMenuItemWrapper();
                     //do not change state, we're still in main menu
+                } else {
+                    if (currGameState==sciroguelike2.algodata.GameStates.MAINGAME) {
+                        //move character one square up
+                        sciroguelike2.datastructs.Player.movePlayerUp();
+                        //do not change game state
+                    }
                 }
                 break;
             }
@@ -50,6 +57,8 @@ public class ContextKbProcessor{
                     //move to next menu item and highlight it
                     kbNextMenuItemWrapper();
                     //do not change state, we're still in main menu
+                } else {
+                    sciroguelike2.datastructs.Player.movePlayerDown();
                 }
                 break;
             }

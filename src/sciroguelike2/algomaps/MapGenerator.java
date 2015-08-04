@@ -19,19 +19,19 @@ public class MapGenerator {
                 for (int j=0; j<(GeneralCoreData.ChunkHeight); j++) {
                     ArrayList<MapTile> singleChunkRow = new ArrayList<>();
                     for (int k=1; k<GeneralCoreData.ChunkWidth; k++) {
-                        singleChunkRow.add(new MapTile(1));
+                        singleChunkRow.add(new MapTile(2));
                     }
                     firstMapChunk.ChunkMapContainer.set(j, singleChunkRow);
                 }
         
         for (int i=1; i<=8; i++) {
             MapChunk theMapChunk =sciroguelike2.algomaps.MapProcessor.currentMapBuffer.generalMap.get(0).fragmentContainer.get(i);
-            System.out.println("TestFillMap: now working with Chunk #"+i+" : "+(theMapChunk==null ? "null!":"not null"));
+            //System.out.println("TestFillMap: now working with Chunk #"+i+" : "+(theMapChunk==null ? "null!":"not null"));
                 for (int j=0; j<(GeneralCoreData.ChunkHeight); j++) {
                     ArrayList<MapTile> singleChunkRow = new ArrayList<>();
-                    singleChunkRow.add(new MapTile(2));
+                    singleChunkRow.add(new MapTile(1));
                     for (int k=1; k<GeneralCoreData.ChunkWidth; k++) {
-                        singleChunkRow.add(new MapTile(2));
+                        singleChunkRow.add(new MapTile(1));
                     }
                     theMapChunk.ChunkMapContainer.set(j, singleChunkRow);
                 }

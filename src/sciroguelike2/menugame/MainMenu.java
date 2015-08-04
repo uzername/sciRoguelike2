@@ -72,7 +72,7 @@ public class MainMenu {
             sciroguelike2.algodata.GameStateResolver.changeGameState(sciroguelike2.algodata.GameStates.QUITGAME);
         }
         if (menuIndex==0) { //'new game' menu item
-            
+            sciroguelike2.general.AlgorithmicProcessor.newGameDataGeneration();
             sciroguelike2.algodata.GameStateResolver.changeGameState(sciroguelike2.algodata.GameStates.MAINGAME);
         }
     }

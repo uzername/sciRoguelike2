@@ -84,7 +84,7 @@ public class MapDisplay {
             }
             startMarker = MapProcessor.getNeighbourMapArea(startChunk, startFragment, mvmntDirection);
         }
-            System.out.println("start MovementDirection = "+mvmntDirection+"; startMarker="+startMarker);
+            //System.out.println("start MovementDirection = "+mvmntDirection+"; startMarker="+startMarker);
         //checking end chunk markers
                 //left end chunk - this variant is geometrically impossible
         if ((endX<0)) { 
@@ -116,7 +116,7 @@ public class MapDisplay {
             }
             endMarker = MapProcessor.getNeighbourMapArea(endChunk, endFragment, mvmntDirection);
         }
-        System.out.println("end MovementDirection="+mvmntDirection+"; endMarker="+endMarker);
+        //System.out.println("end MovementDirection="+mvmntDirection+"; endMarker="+endMarker);
         //checking boundaries and adjusting display positions
         if (startX<0) {
             startX=GeneralCoreData.ChunkWidth+startX;        
@@ -131,8 +131,8 @@ public class MapDisplay {
             endY=GeneralCoreData.ChunkHeight-endY;
         }
         //draw the stuff, each symbol of display screen
-        System.out.println("Printing map");
-        System.out.println("(startX="+startX+"; startY="+startY+"); endX="+endX+"; endY="+endY);
+        //System.out.println("Printing map");
+        //System.out.println("(startX="+startX+"; startY="+startY+"); endX="+endX+"; endY="+endY);
         /*
         ++++++ Map display algorithm ++++++
         we have relative coordinates (startX, startY) and (endX, endY). These are relative to starting/ending 
@@ -154,40 +154,40 @@ public class MapDisplay {
                 general.algodata.PrototypeCollector.mapTilesData.get(
                     general.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX).prototypeIndex).mapSymbol.toString() );
                 */
+                Integer curTilePrototype = sciroguelike2.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX).prototypeIndex;
                 GeneralCoreData.foregroundpane.put(j, i, 
-                        sciroguelike2.algodata.PrototypeCollector.mapTilesData.get(
-                            sciroguelike2.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX).prototypeIndex).mapSymbol, 
-                        Color.CYAN);
+                        sciroguelike2.algodata.PrototypeCollector.mapTilesData.get( curTilePrototype ).mapSymbol, 
+                        sciroguelike2.algodata.PrototypeCollector.mapTilesData.get( curTilePrototype ).symColor);
                 GeneralCoreData.backgroundpane.put(j, i, 
-                        Color.CYAN);
+                        sciroguelike2.algodata.PrototypeCollector.mapTilesData.get( curTilePrototype ).symBgColor);
                 
                 
                 currentCycleX+=1;
                 //equality into condition was added because it used to cause an exception. Originally it was '>'...
                 if (currentCycleX>=GeneralCoreData.ChunkWidth) { 
                     //we have changed the MapChunk while moving to East
-                        System.out.println("current coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+") scr=("+i+","+j+")");
+                        //System.out.println("current coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+") scr=("+i+","+j+")");
                     java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
-                        System.out.println("Changed mapchunk while drawing (horizontal movement) to "+newChunkFragmentData);
+                        //System.out.println("Changed mapchunk while drawing (horizontal movement) to "+newChunkFragmentData);
                     currentCycleX = 0;
                     currentCycleChunkCoord = newChunkFragmentData.get(0);
                     currentCycleFragmentCoord = newChunkFragmentData.get(1);
-                        System.out.println("updated coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+")"+"scr=("+i+","+j+")");
+                        //System.out.println("updated coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+")"+"scr=("+i+","+j+")");
                 }
             }
             currentCycleChunkCoord = initLinearChunk; currentCycleFragmentCoord = initLinearFragment;
             currentCycleY+=1;
-            System.out.println("moving to next line #"+currentCycleY);
+            //System.out.println("moving to next line #"+currentCycleY);
             //equality into condition was added because it used to cause an exception. Originally it was '>'...
             if (currentCycleY>=GeneralCoreData.ChunkHeight) {
                 java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
-                System.out.println("Changed mapchunk while drawing (vertical movement) to "+newChunkFragmentData);
+                //System.out.println("Changed mapchunk while drawing (vertical movement) to "+newChunkFragmentData);
                 currentCycleY = 0;
                 currentCycleChunkCoord = newChunkFragmentData.get(0);
                 currentCycleFragmentCoord = newChunkFragmentData.get(1);
             }
         }
-        System.out.println("done drawing");
+        //System.out.println("done drawing");
                 GeneralCoreData.foregroundpane.refresh();
                 GeneralCoreData.backgroundpane.refresh();
     }
@@ -198,5 +198,9 @@ public class MapDisplay {
         //render player
         //general.algomaps.MapDisplay.globalCsi.print(playerPositionX, playerPositionY, Player.playerMainCharacter, Player.playerMainColor);
         //    general.algomaps.MapDisplay.globalCsi.refresh();
+        GeneralCoreData.foregroundpane.put(playerPositionX, playerPositionY, Player.playerMainCharacter, Player.playerFgColor );
+        GeneralCoreData.backgroundpane.put(playerPositionX, playerPositionY, Player.playerBkgColor);
+        GeneralCoreData.foregroundpane.refresh();
+        GeneralCoreData.backgroundpane.refresh();
     }
 }
