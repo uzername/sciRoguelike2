@@ -44,6 +44,10 @@ public class Player {
         return playerEntity;
     }
     
+    public static void printPlayerData() {
+        System.out.println("coords in mapchunk: ("+mapChunkXCoord+";"+mapChunkYCoord+");"+
+                "mapchunk number: "+currMapChunk+" Map fragment: "+currMapFragment);
+    }
     /**
      * move player up on map. key handler! Should move it somewhere, but I don't know where
      * Changes player chunk coord, position and player fragment
@@ -55,16 +59,21 @@ public class Player {
         //redraw
         sciroguelike2.algomaps.MapDisplay.renderMap();
         sciroguelike2.algomaps.MapDisplay.renderCharacters();
+        sciroguelike2.algomaps.MapDisplay.refreshAll();
         System.out.println("character goes up!");
     }
     public static void movePlayerDown() {
-        if (mapChunkYCoord==sciroguelike2.algodata.GeneralCoreData.ChunkHeight-1) return;
+        if (mapChunkYCoord==sciroguelike2.algodata.GeneralCoreData.ChunkHeight-1) {
+            System.out.println("rejected down movement");
+            return; }
         //recalculate coordinates
         mapChunkYCoord++;
         //redraw
         sciroguelike2.algomaps.MapDisplay.renderMap();
         sciroguelike2.algomaps.MapDisplay.renderCharacters();
+        sciroguelike2.algomaps.MapDisplay.refreshAll();
         System.out.println("character goes down!");
+        printPlayerData();
     }
     public static void movePlayerRight() {
         if (mapChunkXCoord==sciroguelike2.algodata.GeneralCoreData.ChunkWidth-1) return;
@@ -73,7 +82,9 @@ public class Player {
         //redraw
         sciroguelike2.algomaps.MapDisplay.renderMap();
         sciroguelike2.algomaps.MapDisplay.renderCharacters();
+        sciroguelike2.algomaps.MapDisplay.refreshAll();
         System.out.println("character goes right!");
+        printPlayerData();
     }
     public static void movePlayerLeft() {
         if (mapChunkXCoord==0) return;
@@ -82,6 +93,8 @@ public class Player {
         //redraw
         sciroguelike2.algomaps.MapDisplay.renderMap();
         sciroguelike2.algomaps.MapDisplay.renderCharacters();
+        sciroguelike2.algomaps.MapDisplay.refreshAll();
         System.out.println("character goes left!");
+        printPlayerData();
     }
 }

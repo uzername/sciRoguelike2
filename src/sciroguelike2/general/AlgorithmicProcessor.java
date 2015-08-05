@@ -25,8 +25,10 @@ public class AlgorithmicProcessor {
                 //it's good to make adjustments to Player entity here
             sciroguelike2.datastructs.Player.getPlayer(); 
         //draw map and everything in it.
+            MapDisplay.clearAll();
             MapDisplay.renderMap();
             MapDisplay.renderCharacters();
+            MapDisplay.refreshAll();
     }
     public static void loadGameDataRetrieval() {
         

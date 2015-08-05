@@ -27,8 +27,9 @@ public class MapDisplay {
     public static void renderMap() {
         //we have index of current mapchunk
         //draw this mapchunk, centering it on screen.
-        GeneralCoreData.foregroundpane.erase();
-        GeneralCoreData.backgroundpane.erase();
+        //fighting with blinking!
+        //GeneralCoreData.foregroundpane.erase();
+        //GeneralCoreData.backgroundpane.erase();
         Integer playerFragmentMapIndex=sciroguelike2.datastructs.Player.getCurrMapFragment();
         Integer playerChunkMapIndex=sciroguelike2.datastructs.Player.getCurrMapChunk();
         Integer playerChunkMapXCoord = sciroguelike2.datastructs.Player.getMapChunkXCoord();
@@ -148,13 +149,8 @@ public class MapDisplay {
             Integer initLinearChunk = currentCycleChunkCoord;
             Integer initLinearFragment  = currentCycleFragmentCoord;
             for (int j=0; j<GeneralCoreData.screenWidth; j++) { //iterating over each symbl of row (SCREEN COORDS!)
-                
-                /*
-                general.algomaps.MapDisplay.globalCsi.print(j, i, 
-                general.algodata.PrototypeCollector.mapTilesData.get(
-                    general.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX).prototypeIndex).mapSymbol.toString() );
-                */
                 Integer curTilePrototype = sciroguelike2.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX).prototypeIndex;
+                //System.out.println("now displaying: Fragment="+currentCycleFragmentCoord+";Chunk="+currentCycleChunkCoord+";C.C.Ch.X="+currentCycleX+"C.C.Ch.Y="+currentCycleY+";coord=("+i+";"+j+");prototype:"+curTilePrototype);
                 GeneralCoreData.foregroundpane.put(j, i, 
                         sciroguelike2.algodata.PrototypeCollector.mapTilesData.get( curTilePrototype ).mapSymbol, 
                         sciroguelike2.algodata.PrototypeCollector.mapTilesData.get( curTilePrototype ).symColor);
@@ -169,18 +165,23 @@ public class MapDisplay {
                         //System.out.println("current coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+") scr=("+i+","+j+")");
                     java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
                         //System.out.println("Changed mapchunk while drawing (horizontal movement) to "+newChunkFragmentData);
-                    currentCycleX = 0;
+                    currentCycleX = startX;
                     currentCycleChunkCoord = newChunkFragmentData.get(0);
                     currentCycleFragmentCoord = newChunkFragmentData.get(1);
                         //System.out.println("updated coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+")"+"scr=("+i+","+j+")");
                 }
             }
+            //row finished
             currentCycleChunkCoord = initLinearChunk; currentCycleFragmentCoord = initLinearFragment;
-            currentCycleY+=1;
+            currentCycleY+=1; //row finished - moving to next row.
+            currentCycleX=startX;//row finished - rolling back to initial Xcoord of map in memory
             //System.out.println("moving to next line #"+currentCycleY);
             //equality into condition was added because it used to cause an exception. Originally it was '>'...
             if (currentCycleY>=GeneralCoreData.ChunkHeight) {
-                java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
+                //the row should be changed: exceeded by vertical.
+                //if we have something more to draw (and we do really have), we should switch chunk
+                //this situation will happen only when drawfield contains only 4 mapchunks
+                java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 7);
                 //System.out.println("Changed mapchunk while drawing (vertical movement) to "+newChunkFragmentData);
                 currentCycleY = 0;
                 currentCycleChunkCoord = newChunkFragmentData.get(0);
@@ -188,8 +189,8 @@ public class MapDisplay {
             }
         }
         //System.out.println("done drawing");
-                GeneralCoreData.foregroundpane.refresh();
-                GeneralCoreData.backgroundpane.refresh();
+                //GeneralCoreData.foregroundpane.refresh();
+                //GeneralCoreData.backgroundpane.refresh();
     }
     /**
      * render only characters on map (including monsters, NPCs and Player)
@@ -200,6 +201,21 @@ public class MapDisplay {
         //    general.algomaps.MapDisplay.globalCsi.refresh();
         GeneralCoreData.foregroundpane.put(playerPositionX, playerPositionY, Player.playerMainCharacter, Player.playerFgColor );
         GeneralCoreData.backgroundpane.put(playerPositionX, playerPositionY, Player.playerBkgColor);
+        
+    }
+    /**
+     * We need to clear the whole pane not that often, due to blinking and minor lags
+     * clear only when needed!
+     */
+    public static void clearAll() {
+        GeneralCoreData.foregroundpane.erase();
+        GeneralCoreData.backgroundpane.erase();
+    }
+    /**
+     * We need to refresh the whole pane not that often, due to blinking and minor lags
+     * refresh only when needed!
+     */
+    public static void refreshAll() {
         GeneralCoreData.foregroundpane.refresh();
         GeneralCoreData.backgroundpane.refresh();
     }
