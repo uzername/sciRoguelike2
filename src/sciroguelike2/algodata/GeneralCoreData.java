@@ -39,6 +39,7 @@ public class GeneralCoreData {
     public static String currentFontName = "resources/TerminalVector.ttf";
     public static SquidPanel foregroundpane; //pane where drawing all symbols is done
     public static SquidPanel backgroundpane;
+    public static Boolean drawing;
     
     private static Font getFont() throws FontFormatException, IOException {
             Font myFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, GeneralCoreData.class.getClassLoader().getResourceAsStream(currentFontName)); 

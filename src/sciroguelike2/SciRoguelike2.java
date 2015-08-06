@@ -57,6 +57,8 @@ public class SciRoguelike2 {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
+        sciroguelike2.algodata.GeneralCoreData.drawing = false;
+        
         sciroguelike2.menugame.MainMenu.displayMainMenu();
         //main game cycle
         
@@ -78,7 +80,7 @@ public class SciRoguelike2 {
                     // if there is input queued in the keyListener, then we want to resolve that and not go into the
                     // else if block below.
                     //System.out.println(keyListener.hasNext());
-                    if (keyListener.hasNext()) {
+                    if ((!sciroguelike2.algodata.GeneralCoreData.drawing) && (keyListener.hasNext())) {
                         // again, we want to make sure the times are different enough. demo.counter is updated in the
                         // else if block below, and nowhere else, so if input is queued, the counter won't change, but
                         // upd will. it won't be longer than 65 milliseconds before this runs.

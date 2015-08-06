@@ -25,11 +25,10 @@ public class MapDisplay {
      * The epic method. Probably should split it to several
      */
     public static void renderMap() {
-        //we have index of current mapchunk
+        //we have index of current mapchunk in player's class
         //draw this mapchunk, centering it on screen.
-        //fighting with blinking!
-        //GeneralCoreData.foregroundpane.erase();
-        //GeneralCoreData.backgroundpane.erase();
+        if (sciroguelike2.algodata.GeneralCoreData.drawing==false) {
+        sciroguelike2.algodata.GeneralCoreData.drawing=true;
         Integer playerFragmentMapIndex=sciroguelike2.datastructs.Player.getCurrMapFragment();
         Integer playerChunkMapIndex=sciroguelike2.datastructs.Player.getCurrMapChunk();
         Integer playerChunkMapXCoord = sciroguelike2.datastructs.Player.getMapChunkXCoord();
@@ -191,6 +190,8 @@ public class MapDisplay {
         //System.out.println("done drawing");
                 //GeneralCoreData.foregroundpane.refresh();
                 //GeneralCoreData.backgroundpane.refresh();
+        sciroguelike2.algodata.GeneralCoreData.drawing=false;
+        }
     }
     /**
      * render only characters on map (including monsters, NPCs and Player)

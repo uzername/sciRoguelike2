@@ -58,7 +58,9 @@ public class ContextKbProcessor{
                     kbNextMenuItemWrapper();
                     //do not change state, we're still in main menu
                 } else {
+                    if (currGameState==sciroguelike2.algodata.GameStates.MAINGAME) {
                     sciroguelike2.datastructs.Player.movePlayerDown();
+                    }
                 }
                 break;
             }
@@ -66,8 +68,20 @@ public class ContextKbProcessor{
                 if (sciroguelike2.algodata.GameStateResolver.getCurrGameState()==sciroguelike2.algodata.GameStates.MAINMENU){
                     kbProcessCurrentMenuItemWrapper();
                 }
+                break;
             }
-            
+            case (KeyEvent.VK_LEFT): {
+                if (currGameState==sciroguelike2.algodata.GameStates.MAINGAME) {
+                    sciroguelike2.datastructs.Player.movePlayerLeft();
+                }
+                break;
+            }
+            case (KeyEvent.VK_RIGHT): {
+                if (currGameState==sciroguelike2.algodata.GameStates.MAINGAME) {
+                    sciroguelike2.datastructs.Player.movePlayerRight();
+                }
+                break;
+            }
         }
         //performAction(theChosenAction)
     }

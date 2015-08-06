@@ -60,7 +60,7 @@ public class Player {
         sciroguelike2.algomaps.MapDisplay.renderMap();
         sciroguelike2.algomaps.MapDisplay.renderCharacters();
         sciroguelike2.algomaps.MapDisplay.refreshAll();
-        System.out.println("character goes up!");
+        //System.out.println("character goes up!");
     }
     public static void movePlayerDown() {
         if (mapChunkYCoord==sciroguelike2.algodata.GeneralCoreData.ChunkHeight-1) {
@@ -72,29 +72,33 @@ public class Player {
         sciroguelike2.algomaps.MapDisplay.renderMap();
         sciroguelike2.algomaps.MapDisplay.renderCharacters();
         sciroguelike2.algomaps.MapDisplay.refreshAll();
-        System.out.println("character goes down!");
-        printPlayerData();
+        //System.out.println("character goes down!");
+        //printPlayerData();
     }
     public static void movePlayerRight() {
-        if (mapChunkXCoord==sciroguelike2.algodata.GeneralCoreData.ChunkWidth-1) return;
+        if (mapChunkXCoord>=sciroguelike2.algodata.GeneralCoreData.ChunkWidth-1) {
+            System.out.println("rejected right movement");
+            return;}
         //recalculate coordinates
         mapChunkXCoord++;
         //redraw
         sciroguelike2.algomaps.MapDisplay.renderMap();
         sciroguelike2.algomaps.MapDisplay.renderCharacters();
         sciroguelike2.algomaps.MapDisplay.refreshAll();
-        System.out.println("character goes right!");
-        printPlayerData();
+        //System.out.println("character goes right!");
+        //printPlayerData();
     }
     public static void movePlayerLeft() {
-        if (mapChunkXCoord==0) return;
+        if (mapChunkXCoord==0) {
+            System.out.println("rejected left movement");
+            return; }
         //recalculate coordinates
         mapChunkXCoord--;
         //redraw
         sciroguelike2.algomaps.MapDisplay.renderMap();
         sciroguelike2.algomaps.MapDisplay.renderCharacters();
         sciroguelike2.algomaps.MapDisplay.refreshAll();
-        System.out.println("character goes left!");
-        printPlayerData();
+        //System.out.println("character goes left!");
+        //printPlayerData();
     }
 }
