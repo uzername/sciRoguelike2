@@ -17,12 +17,14 @@ public class MapGenerator {
         public static void testFillMap() { //test routine of map
         //map chunks are initialized by this moment
         MapChunk firstMapFragment = sciroguelike2.algomaps.MapProcessor.currentMapBuffer.generalMap.get(0).fragmentContainer.get(0);
-                for (int j=0; j<(GeneralCoreData.ChunkHeight); j++) {
+                for (int l=0; l<(GeneralCoreData.ChunkHeight); l++) {
                     ArrayList<MapTile> singleChunkRow = new ArrayList<>();
                     for (int k=0; k<GeneralCoreData.ChunkWidth; k++) {
+                        if (((k+1)%4==0)||(k%4==0)) {
                         singleChunkRow.add(new MapTile(2));
+                        } else {singleChunkRow.add(new MapTile(1));}
                     }
-                    firstMapFragment.ChunkMapContainer.set(j, singleChunkRow);
+                    firstMapFragment.ChunkMapContainer.set(l, singleChunkRow);
                     //sciroguelike2.algomaps.MapProcessor.currentMapBuffer.generalMap.get(0).fragmentContainer.get(0).ChunkMapContainer.set(j, singleChunkRow);
                 }
                 

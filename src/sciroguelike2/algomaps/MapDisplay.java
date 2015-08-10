@@ -27,8 +27,6 @@ public class MapDisplay {
     public static void renderMap() {
         //we have index of current mapchunk in player's class
         //draw this mapchunk, centering it on screen.
-        if (sciroguelike2.algodata.GeneralCoreData.drawing==false) {
-        sciroguelike2.algodata.GeneralCoreData.drawing=true;
         Integer playerFragmentMapIndex=sciroguelike2.datastructs.Player.getCurrMapFragment();
         Integer playerChunkMapIndex=sciroguelike2.datastructs.Player.getCurrMapChunk();
         Integer playerChunkMapXCoord = sciroguelike2.datastructs.Player.getMapChunkXCoord();
@@ -84,7 +82,7 @@ public class MapDisplay {
             }
             startMarker = MapProcessor.getNeighbourMapArea(startChunk, startFragment, mvmntDirection);
         }
-            //System.out.println("start MovementDirection = "+mvmntDirection+"; startMarker="+startMarker);
+        //    System.out.println("start MovementDirection = "+mvmntDirection+"; startMarker="+startMarker);
         //checking end chunk markers
                 //left end chunk - this variant is geometrically impossible
         if ((endX<0)) { 
@@ -131,8 +129,8 @@ public class MapDisplay {
             endY=GeneralCoreData.ChunkHeight-endY;
         }
         //draw the stuff, each symbol of display screen
-        //System.out.println("Printing map");
-        //System.out.println("(startX="+startX+"; startY="+startY+"); endX="+endX+"; endY="+endY);
+        System.out.println("Printing map");
+        System.out.println("(startX="+startX+"; startY="+startY+"); endX="+endX+"; endY="+endY);
         /*
         ++++++ Map display algorithm ++++++
         we have relative coordinates (startX, startY) and (endX, endY). These are relative to starting/ending 
@@ -140,7 +138,8 @@ public class MapDisplay {
         Ending mapChunk/mapFragment are in endFragment. We also have Player's current Fragment and Chunk.
         While drawing map, we start from (startX, startY, [mapChunk, mapFragment]). We move from left to right, crossing some borders of mapFragments/mapChunks.
         We take data from current-cycle MapChunk and draw these on screen
-        */
+        */      
+
         Integer currentCycleX=startX; Integer currentCycleY=startY; 
         Integer currentCycleChunkCoord=startMarker.get(0); Integer currentCycleFragmentCoord=startMarker.get(1);
         for (int i=0; i<GeneralCoreData.screenHeight; i++) { //filling by rows (SCREEN COORDS!)
@@ -150,11 +149,11 @@ public class MapDisplay {
             for (int j=0; j<GeneralCoreData.screenWidth; j++) { //iterating over each symbl of row (SCREEN COORDS!)
                 Integer curTilePrototype = sciroguelike2.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX).prototypeIndex;
                 //System.out.println("now displaying: Fragment="+currentCycleFragmentCoord+";Chunk="+currentCycleChunkCoord+";C.C.Ch.X="+currentCycleX+"C.C.Ch.Y="+currentCycleY+";coord=("+i+";"+j+");prototype:"+curTilePrototype);
-                GeneralCoreData.foregroundpane.put(j, i, 
+                GeneralCoreData.foregroundpane.put(i, j, 
                         sciroguelike2.algodata.PrototypeCollector.mapTilesData.get( curTilePrototype ).mapSymbol, 
                         sciroguelike2.algodata.PrototypeCollector.mapTilesData.get( curTilePrototype ).symColor);
-                GeneralCoreData.backgroundpane.put(j, i, 
-                        sciroguelike2.algodata.PrototypeCollector.mapTilesData.get( curTilePrototype ).symBgColor);
+                //GeneralCoreData.backgroundpane.put(i, j, 
+                //        sciroguelike2.algodata.PrototypeCollector.mapTilesData.get( curTilePrototype ).symBgColor);
                 
                 
                 currentCycleX+=1;
@@ -170,10 +169,12 @@ public class MapDisplay {
                         //System.out.println("updated coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+")"+"scr=("+i+","+j+")");
                 }
             }
-            //row finished
+            //screen row finished, so is the map row
             currentCycleChunkCoord = initLinearChunk; currentCycleFragmentCoord = initLinearFragment;
             currentCycleY+=1; //row finished - moving to next row.
-            currentCycleX=startX;//row finished - rolling back to initial Xcoord of map in memory
+            
+            //currentCycleX=startX;//row finished - rolling back to initial Xcoord of map in memory
+            
             //System.out.println("moving to next line #"+currentCycleY);
             //equality into condition was added because it used to cause an exception. Originally it was '>'...
             if (currentCycleY>=GeneralCoreData.ChunkHeight) {
@@ -187,11 +188,10 @@ public class MapDisplay {
                 currentCycleFragmentCoord = newChunkFragmentData.get(1);
             }
         }
-        //System.out.println("done drawing");
+
+        System.out.println("done drawing");
                 //GeneralCoreData.foregroundpane.refresh();
-                //GeneralCoreData.backgroundpane.refresh();
-        sciroguelike2.algodata.GeneralCoreData.drawing=false;
-        }
+                //GeneralCoreData.backgroundpane.refresh();        
     }
     /**
      * render only characters on map (including monsters, NPCs and Player)
@@ -219,5 +219,18 @@ public class MapDisplay {
     public static void refreshAll() {
         GeneralCoreData.foregroundpane.refresh();
         GeneralCoreData.backgroundpane.refresh();
+    }
+    
+    /**
+     * This repeating fragment is used in Player class, movement sector.
+     */
+    public static void generalizedDraw() {
+        if (sciroguelike2.algodata.GeneralCoreData.drawing==false) {
+                sciroguelike2.algodata.GeneralCoreData.drawing=true;
+            sciroguelike2.algomaps.MapDisplay.renderMap();
+            sciroguelike2.algomaps.MapDisplay.renderCharacters();
+            sciroguelike2.algomaps.MapDisplay.refreshAll(); 
+                sciroguelike2.algodata.GeneralCoreData.drawing=false;
+            }
     }
 }

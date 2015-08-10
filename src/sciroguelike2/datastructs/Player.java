@@ -57,9 +57,7 @@ public class Player {
         //recalculate coordinates
         mapChunkYCoord--;
         //redraw
-        sciroguelike2.algomaps.MapDisplay.renderMap();
-        sciroguelike2.algomaps.MapDisplay.renderCharacters();
-        sciroguelike2.algomaps.MapDisplay.refreshAll();
+        sciroguelike2.algomaps.MapDisplay.generalizedDraw();
         //System.out.println("character goes up!");
     }
     public static void movePlayerDown() {
@@ -69,9 +67,10 @@ public class Player {
         //recalculate coordinates
         mapChunkYCoord++;
         //redraw
-        sciroguelike2.algomaps.MapDisplay.renderMap();
-        sciroguelike2.algomaps.MapDisplay.renderCharacters();
-        sciroguelike2.algomaps.MapDisplay.refreshAll();
+            //sciroguelike2.algomaps.MapDisplay.renderMap();
+            //sciroguelike2.algomaps.MapDisplay.renderCharacters();
+            //sciroguelike2.algomaps.MapDisplay.refreshAll();
+        sciroguelike2.algomaps.MapDisplay.generalizedDraw();
         //System.out.println("character goes down!");
         //printPlayerData();
     }
@@ -82,9 +81,15 @@ public class Player {
         //recalculate coordinates
         mapChunkXCoord++;
         //redraw
-        sciroguelike2.algomaps.MapDisplay.renderMap();
-        sciroguelike2.algomaps.MapDisplay.renderCharacters();
-        sciroguelike2.algomaps.MapDisplay.refreshAll();
+        //sciroguelike2.algomaps.MapDisplay.renderMap();
+        //sciroguelike2.algomaps.MapDisplay.renderCharacters();
+        //sciroguelike2.algomaps.MapDisplay.refreshAll();
+        try {
+            sciroguelike2.algomaps.MapDisplay.generalizedDraw();
+        } catch (Exception e) {
+            printPlayerData();
+            e.printStackTrace();
+        }
         //System.out.println("character goes right!");
         //printPlayerData();
     }
@@ -95,9 +100,13 @@ public class Player {
         //recalculate coordinates
         mapChunkXCoord--;
         //redraw
-        sciroguelike2.algomaps.MapDisplay.renderMap();
-        sciroguelike2.algomaps.MapDisplay.renderCharacters();
-        sciroguelike2.algomaps.MapDisplay.refreshAll();
+        try {
+            sciroguelike2.algomaps.MapDisplay.generalizedDraw();
+        } catch (Exception e) {
+            printPlayerData();
+            e.printStackTrace();
+        }
+        
         //System.out.println("character goes left!");
         //printPlayerData();
     }
