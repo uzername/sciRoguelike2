@@ -1,4 +1,5 @@
 package sciroguelike2.datastructs;
+
 /**
  * player entity. The main Character of the game. Player is only one here.
  * Crude singleton
@@ -56,16 +57,23 @@ public class Player {
         if (mapChunkYCoord==0) return;
         //recalculate coordinates
         mapChunkYCoord--;
+        if (mapChunkYCoord<0) {
+                //character stepped from the current mapChunk
+            }
         //redraw
         sciroguelike2.algomaps.MapDisplay.generalizedDraw();
-        //System.out.println("character goes up!");
     }
+    /**
+     * move player down (to north).
+     */
     public static void movePlayerDown() {
         if (mapChunkYCoord==sciroguelike2.algodata.GeneralCoreData.ChunkHeight-1) {
+            //change chunk
             System.out.println("rejected down movement");
             return; }
         //recalculate coordinates
         mapChunkYCoord++;
+        
         //redraw
             //sciroguelike2.algomaps.MapDisplay.renderMap();
             //sciroguelike2.algomaps.MapDisplay.renderCharacters();

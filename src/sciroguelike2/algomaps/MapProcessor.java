@@ -37,7 +37,11 @@ public class MapProcessor {
      */
     public static MapTile getMapTileByCoordinates(Integer fragmentCoord, Integer chunkCoord, Integer tileX, Integer tileY) {
         MapTile tile2Return = null;
+        try {
         tile2Return = sciroguelike2.algomaps.MapProcessor.currentMapBuffer.generalMap.get(fragmentCoord).fragmentContainer.get(chunkCoord).ChunkMapContainer.get(tileX).get(tileY);
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
         return tile2Return;
     }
 
@@ -491,17 +495,19 @@ public class MapProcessor {
                             }
                 }
                 if (switchChunk == true) {
+                    System.out.println("Switching chunk on movement from "+initialChunkCoord+" in direction: 7");
                     switch (initialFragmentCoord) {
-                            case 1: { result.set(1, 7); break; }
-                            case 2: { result.set(1, 0); break; }
-                            case 3: { result.set(1, 5); break; }
-                            case 4: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
-                            case 5: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 0: { result.set(1, 7); break;}
+                            case 1: { result.set(1, 8); break; }
+                            case 2: { result.set(1, 1); break; }
+                            case 3: { result.set(1, 0); break; }
+                            case 4: { result.set(1, 5); break; }
+                            case 5: { result.set(1, 6); break; }
                             case 6: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
                             case 7: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
                             case 8: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
                             default: {
-                                throw new IllegalArgumentException("Invalid Fragment:"+initialFragmentCoord);
+                                throw new IllegalArgumentException("Invalid Fragment:"+initialFragmentCoord+" while moving to "+movementDirection);
                             }
                         }
                 }

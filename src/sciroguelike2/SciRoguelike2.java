@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import sciroguelike2.general.MyKbLowlvlProcessor;
 import squidpony.SColor;
 import squidpony.squidgrid.gui.SquidKey;
 import squidpony.squidgrid.gui.SquidPanel;
@@ -20,7 +21,7 @@ import squidpony.squidmath.RNG;
  */
 public class SciRoguelike2 {
     
-    public static SquidKey keyListener;
+    public static MyKbLowlvlProcessor keyListener;
 
     public static void main(String[] args) {
         
@@ -38,7 +39,7 @@ public class SciRoguelike2 {
         }
         */
         sciroguelike2.algodata.GeneralCoreData.defineChunkSize(127, 127);
-        keyListener = new SquidKey(false, SquidKey.CaptureType.DOWN);
+        keyListener = new MyKbLowlvlProcessor(false, SquidKey.CaptureType.DOWN,Boolean.TRUE);
         sciroguelike2.algodata.GeneralCoreData.initGraphics();
         
         JFrame frame = new JFrame("SquidLib Example");
@@ -80,7 +81,7 @@ public class SciRoguelike2 {
                     // if there is input queued in the keyListener, then we want to resolve that and not go into the
                     // else if block below.
                     //System.out.println(keyListener.hasNext());
-                    if ((!sciroguelike2.algodata.GeneralCoreData.drawing) && (keyListener.hasNext())) {
+                    if (keyListener.hasNext()) {
                         // again, we want to make sure the times are different enough. demo.counter is updated in the
                         // else if block below, and nowhere else, so if input is queued, the counter won't change, but
                         // upd will. it won't be longer than 65 milliseconds before this runs.
@@ -92,7 +93,9 @@ public class SciRoguelike2 {
                             demo.redraw();
                         }
                         */
+                        keyListener.setQueueBusy(Boolean.TRUE);
                         sciroguelike2.general.ContextKbProcessor.performAndChooseAction(keyListener.next());
+                        keyListener.setQueueBusy(Boolean.FALSE);
                     }
                     // this needs the times to be different enough as well.
                     //else if (!demo.drawing && demo.counter != upd) {
