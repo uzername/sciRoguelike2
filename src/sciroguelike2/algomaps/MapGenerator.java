@@ -19,11 +19,43 @@ public class MapGenerator {
         MapChunk firstMapFragment = sciroguelike2.algomaps.MapProcessor.currentMapBuffer.generalMap.get(0).fragmentContainer.get(0);
                 for (int l=0; l<(GeneralCoreData.ChunkHeight); l++) {
                     ArrayList<MapTile> singleChunkRow = new ArrayList<>();
+                    /*
                     for (int k=0; k<GeneralCoreData.ChunkWidth; k++) {
                         if (((k+1)%4==0)||(k%4==0)) {
                         singleChunkRow.add(new MapTile(2));
                         } else {singleChunkRow.add(new MapTile(1));}
                     }
+                    */
+                    if (l<=4) {singleChunkRow.add(new MapTile(1));} else {
+                    singleChunkRow.add(new MapTile(2)); }
+                    if ((l==0)||(l==GeneralCoreData.ChunkHeight-1)) {
+                        for (int k=1; k<GeneralCoreData.ChunkWidth; k++) {
+                            singleChunkRow.add(new MapTile(2));
+                        }
+                    } else {
+                        if ((l%3==0)||( (l-1)%3==0 )) {
+                            int k=1;
+                            while (k<GeneralCoreData.ChunkWidth) {
+                                singleChunkRow.add(new MapTile(2));
+                                k++;
+                                if (k>=GeneralCoreData.ChunkWidth) {break;}
+                                singleChunkRow.add(new MapTile(2));
+                                k++;
+                                if (k>=GeneralCoreData.ChunkWidth) {break;}
+                                singleChunkRow.add(new MapTile(1));
+                                k++;
+                                if (k>=GeneralCoreData.ChunkWidth) {break;}
+                                singleChunkRow.add(new MapTile(1));
+                                k++;
+                                if (k>=GeneralCoreData.ChunkWidth) {break;}
+                            }
+                        } else {
+                            for (int k=1; k<GeneralCoreData.ChunkWidth; k++) {
+                                singleChunkRow.add(new MapTile(1));
+                            }
+                        }
+                    }
+                    singleChunkRow.add(new MapTile(2));
                     firstMapFragment.ChunkMapContainer.set(l, singleChunkRow);
                     //sciroguelike2.algomaps.MapProcessor.currentMapBuffer.generalMap.get(0).fragmentContainer.get(0).ChunkMapContainer.set(j, singleChunkRow);
                 }

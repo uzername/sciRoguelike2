@@ -1,0 +1,15 @@
+{"predefined_map": {
+        "mapchunk": [
+            {"chunk_id":0, "uniform_tiles":true, "single_tile":{"id":1},"chunk_data":null},
+            {"chunk_id":1, "uniform_tiles":true, "single_tile":{"id":1},"chunk_data":null},
+            {"chunk_id":2, "uniform_tiles":true, "single_tile":{"id":1},"chunk_data":null},
+            {"chunk_id":3, "uniform_tiles":true, "single_tile":{"id":1},"chunk_data":null},
+            {"chunk_id":4, "uniform_tiles":true, "single_tile":{"id":1},"chunk_data":null},
+            {"chunk_id":5, "uniform_tiles":true, "single_tile":{"id":1},"chunk_data":null},
+            {"chunk_id":6, "uniform_tiles":true, "single_tile":{"id":1},"chunk_data":null},
+            {"chunk_id":7, "uniform_tiles":true, "single_tile":{"id":1},"chunk_data":null},
+            {"chunk_id":8, "uniform_tiles":true, "single_tile":{"id":1},"chunk_data":null}
+        ]
+}
+    
+}

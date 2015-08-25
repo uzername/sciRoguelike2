@@ -54,6 +54,7 @@ public class Player {
      * Changes player chunk coord, position and player fragment
      */
     public static void movePlayerUp() {
+        
         if (mapChunkYCoord==0) return;
         //recalculate coordinates
         mapChunkYCoord--;
@@ -67,20 +68,16 @@ public class Player {
      * move player down (to north).
      */
     public static void movePlayerDown() {
+        
         if (mapChunkYCoord==sciroguelike2.algodata.GeneralCoreData.ChunkHeight-1) {
             //change chunk
             System.out.println("rejected down movement");
             return; }
         //recalculate coordinates
         mapChunkYCoord++;
-        
         //redraw
-            //sciroguelike2.algomaps.MapDisplay.renderMap();
-            //sciroguelike2.algomaps.MapDisplay.renderCharacters();
-            //sciroguelike2.algomaps.MapDisplay.refreshAll();
+        //sciroguelike2.algomaps.MapDisplay.renderMap(); sciroguelike2.algomaps.MapDisplay.renderCharacters(); sciroguelike2.algomaps.MapDisplay.refreshAll();
         sciroguelike2.algomaps.MapDisplay.generalizedDraw();
-        //System.out.println("character goes down!");
-        //printPlayerData();
     }
     public static void movePlayerRight() {
         if (mapChunkXCoord>=sciroguelike2.algodata.GeneralCoreData.ChunkWidth-1) {
