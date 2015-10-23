@@ -3,6 +3,7 @@ package sciroguelike2.algodata;
 /**
  * same keys may have different actions depending on where we are
  * (arrow/movement keys may be used to navigate a character or to move menu)
+ * @see KbConfig
  * like other config classes, this one is mostly static
  * @author ivan
  */

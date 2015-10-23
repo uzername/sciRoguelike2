@@ -1,6 +1,8 @@
 package sciroguelike2.general;
 
 import java.awt.event.KeyEvent;
+import sciroguelike2.algodata.GameActions;
+import sciroguelike2.algodata.GameStates;
 
 /**
  * Static class which contains processing routines for user's input. 
@@ -29,12 +31,20 @@ public class ContextKbProcessor{
     public static void performAndChooseAction(KeyEvent k) {
         //System.out.println("inside performAndChooseAction: "+processKeyCode);
         Integer processKeyCode = k.getExtendedKeyCode();
+        Boolean isKbShiftDown = k.isShiftDown();
+        Boolean isKbControlDown = k.isControlDown();
+        Boolean isKbAltDown = k.isAltDown();
+        System.out.println("Shift="+isKbShiftDown+" Control="+isKbControlDown+" Alt= "+isKbAltDown);
         sciroguelike2.algodata.GameStates currGameState = sciroguelike2.algodata.GameStateResolver.getCurrGameState();
         switch (processKeyCode) {
             case (KeyEvent.VK_Q): {
-                if (currGameState==sciroguelike2.algodata.GameStates.MAINMENU) {
-                    //quit game by pressing Q key, while in main menu
-                    sciroguelike2.algodata.GameStateResolver.changeGameState(sciroguelike2.algodata.GameStates.QUITGAME);
+                if (isKbShiftDown==false) { //small 'q' symbol
+                    if (currGameState==sciroguelike2.algodata.GameStates.MAINMENU) {
+                        //quit game by pressing Q key, while in main menu
+                        sciroguelike2.algodata.GameStateResolver.changeGameState(sciroguelike2.algodata.GameStates.QUITGAME);
+                    }
+                } else { //big 'q' symbol
+                    
                 }
                 break;
             }
@@ -84,6 +94,30 @@ public class ContextKbProcessor{
             }
         }
         //performAction(theChosenAction)
+    }
+    /**
+     * Brand new way to choose what action to perform o user's input
+     */
+    public static void fancyPerformAndChooseAction(KeyEvent k) {
+        sciroguelike2.algodata.GameStates currGameState = sciroguelike2.algodata.GameStateResolver.getCurrGameState();
+        KeyProcessingStruct dataToAnalyze = new KeyProcessingStruct(
+                k.getExtendedKeyCode(), 
+                k.isShiftDown(), k.isControlDown(), k.isAltDown(), 
+                currGameState);
+        sciroguelike2.algodata.GameActions action2Perform = KbConfig.getKbConfig().getCorrespondingAction(dataToAnalyze);
+        switch(action2Perform) {
+            case MAINMENU_DOWN: {
+                //move to next menu item and highlight it
+                kbNextMenuItemWrapper();
+                //do not change state, we're still in main menu
+                break;
+            }
+            case MAINMENU_UP: {
+                //move to previous menu item and highlight it
+                kbPrevMenuItemWrapper();
+                //do not change state, we're still in main menu
+            }
+        }
     }
     
 }

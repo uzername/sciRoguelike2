@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import sciroguelike2.general.KbConfig;
 import sciroguelike2.general.MyKbLowlvlProcessor;
 import squidpony.SColor;
 import squidpony.squidgrid.gui.SquidKey;
@@ -21,7 +22,7 @@ import squidpony.squidmath.RNG;
  */
 public class SciRoguelike2 {
     
-    public static MyKbLowlvlProcessor keyListener;
+    public static /*MyKbLowlvlProcessor*/SquidKey  keyListener;
 
     public static void main(String[] args) {
         
@@ -60,6 +61,9 @@ public class SciRoguelike2 {
         
         sciroguelike2.algodata.GeneralCoreData.drawing = false;
         
+        //collect Kb handling configuration
+        KbConfig.getKbConfig().defineKeysInCode();
+        
         sciroguelike2.menugame.MainMenu.displayMainMenu();
         //main game cycle
         
@@ -93,9 +97,11 @@ public class SciRoguelike2 {
                             demo.redraw();
                         }
                         */
-                        keyListener.setQueueBusy(Boolean.TRUE);
-                        sciroguelike2.general.ContextKbProcessor.performAndChooseAction(keyListener.next());
-                        keyListener.setQueueBusy(Boolean.FALSE);
+                        keyListener.setIgnoreInput(true);
+                        //oldschool kb handling
+                        //sciroguelike2.general.ContextKbProcessor.performAndChooseAction(keyListener.next());
+                        sciroguelike2.general.ContextKbProcessor.fancyPerformAndChooseAction(keyListener.next());
+                        keyListener.setIgnoreInput(false);
                     }
                     // this needs the times to be different enough as well.
                     //else if (!demo.drawing && demo.counter != upd) {
