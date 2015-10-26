@@ -115,7 +115,30 @@ public class ContextKbProcessor{
             case MAINMENU_UP: {
                 //move to previous menu item and highlight it
                 kbPrevMenuItemWrapper();
+                break;
                 //do not change state, we're still in main menu
+            }
+            case MAINMENU_ENTER: {
+                kbProcessCurrentMenuItemWrapper();
+                break;
+            }
+            case MOVE_FORWARD: {
+            //move character one square up
+            sciroguelike2.datastructs.Player.movePlayerUp();
+            break;
+            //do not change game state
+            }
+            case MOVE_BACK: {
+                sciroguelike2.datastructs.Player.movePlayerDown();
+                break;
+            }
+            case MOVE_LEFT: {
+                sciroguelike2.datastructs.Player.movePlayerLeft();
+                break;
+            }
+            case MOVE_RIGHT: {
+                sciroguelike2.datastructs.Player.movePlayerRight();
+                break;
             }
         }
     }

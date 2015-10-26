@@ -1,5 +1,7 @@
 package sciroguelike2.general;
 
+import java.util.Objects;
+
 /**
  * a single structure for key processing logic configuration. 
  * Each game action depends on key codes and is defined like:
@@ -28,13 +30,23 @@ public class KeyProcessingStruct {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof KeyProcessingStruct == false) {throw new IllegalArgumentException();}
-        if ( (this.keyCode == ((KeyProcessingStruct)(obj)).keyCode) && 
-             (this.shiftState == ((KeyProcessingStruct)(obj)).shiftState) &&
-             (this.controlState == ((KeyProcessingStruct)(obj)).controlState) &&
-             (this.altState == ((KeyProcessingStruct)(obj)).altState) &&
-             (this.contextGameState== ((KeyProcessingStruct) (obj)).contextGameState))
-            {return true;} else {return false;}
-        
+        if ( (Objects.equals(this.keyCode, ((KeyProcessingStruct)(obj)).keyCode)) && 
+             (Objects.equals(this.shiftState, ((KeyProcessingStruct)(obj)).shiftState)) &&
+             (Objects.equals(this.controlState, ((KeyProcessingStruct)(obj)).controlState)) &&
+             (Objects.equals(this.altState, ((KeyProcessingStruct)(obj)).altState)) &&
+             (this.contextGameState == ((KeyProcessingStruct) (obj)).contextGameState))
+            {return true;} else {return false;}        
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 61 * hash + Objects.hashCode(this.keyCode);
+        hash = 61 * hash + Objects.hashCode(this.shiftState);
+        hash = 61 * hash + Objects.hashCode(this.controlState);
+        hash = 61 * hash + Objects.hashCode(this.altState);
+        hash = 61 * hash + Objects.hashCode(this.contextGameState);
+        return hash;
     }
     
 }

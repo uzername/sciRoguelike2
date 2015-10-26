@@ -36,6 +36,10 @@ public class KbConfig {
                 GameActions.MAINMENU_UP
                        );
         allKbConfig.put(
+                new KeyProcessingStruct(java.awt.event.KeyEvent.VK_DOWN, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, sciroguelike2.algodata.GameStates.MAINMENU), 
+                GameActions.MAINMENU_DOWN
+                       );        
+        allKbConfig.put(
                 new KeyProcessingStruct(java.awt.event.KeyEvent.VK_UP, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, sciroguelike2.algodata.GameStates.MAINGAME), 
                 GameActions.MOVE_FORWARD
                        );
