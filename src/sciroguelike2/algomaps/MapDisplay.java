@@ -27,7 +27,7 @@ public class MapDisplay {
     public static void renderMap() {
         //we have index of current mapchunk in player's class
         //draw this mapchunk, centering it on screen.
-        System.out.println("===Starting draw map===");
+        //System.out.println("===Starting draw map===");
         Integer playerFragmentMapIndex=sciroguelike2.datastructs.Player.getCurrMapFragment();
         Integer playerChunkMapIndex=sciroguelike2.datastructs.Player.getCurrMapChunk();
         Integer playerChunkMapXCoord = sciroguelike2.datastructs.Player.getMapChunkXCoord();
@@ -84,7 +84,7 @@ public class MapDisplay {
             }
             startMarker = MapProcessor.getNeighbourMapArea(startChunk, startFragment, mvmntDirection);
         }
-            System.out.println("start MovementDirection = "+mvmntDirection+"; startMarker="+startMarker.toString());
+            //System.out.println("start MovementDirection = "+mvmntDirection+"; startMarker="+startMarker.toString());
         //checking end chunk markers
                 //left end chunk - this variant is geometrically impossible
         if ((endX<0)) { 
@@ -116,7 +116,7 @@ public class MapDisplay {
             }
             endMarker = MapProcessor.getNeighbourMapArea(endChunk, endFragment, mvmntDirection);
         }
-        System.out.println("end MovementDirection="+mvmntDirection+"; endMarker="+endMarker.toString());
+        //System.out.println("end MovementDirection="+mvmntDirection+"; endMarker="+endMarker.toString());
         //checking boundaries and adjusting display positions
         if (startX<0) {
             startX=GeneralCoreData.ChunkWidth+startX;        
@@ -131,8 +131,8 @@ public class MapDisplay {
             endY=GeneralCoreData.ChunkHeight-endY;
         }
         //draw the stuff, each symbol of display screen
-        System.out.println("Printing map");
-        System.out.println("(startX="+startX+"; startY="+startY+"); endX="+endX+"; endY="+endY+"; start_chunk="+startMarker.get(0)+"; end_chunk="+endMarker.get(0));
+        //System.out.println("Printing map");
+        //System.out.println("(startX="+startX+"; startY="+startY+"); endX="+endX+"; endY="+endY+"; start_chunk="+startMarker.get(0)+"; end_chunk="+endMarker.get(0));
         /*
         ++++++ Map display algorithm ++++++
         we have relative coordinates (startX, startY) and (endX, endY). These are relative to starting/ending 
@@ -172,7 +172,7 @@ public class MapDisplay {
                 yCycle=0;
             }
         }
-        System.out.println("done drawing");
+        //System.out.println("done drawing");
                 //GeneralCoreData.foregroundpane.refresh();
                 //GeneralCoreData.backgroundpane.refresh();        
     }
@@ -209,7 +209,8 @@ public class MapDisplay {
      */
     public static void generalizedDraw() {
         if (sciroguelike2.algodata.GeneralCoreData.drawing==false) {
-                sciroguelike2.algodata.GeneralCoreData.drawing=true;
+            System.out.println("redraw called");
+            sciroguelike2.algodata.GeneralCoreData.drawing=true;
             sciroguelike2.algomaps.MapDisplay.renderMap();
             sciroguelike2.algomaps.MapDisplay.renderCharacters();
             sciroguelike2.algomaps.MapDisplay.refreshAll(); 

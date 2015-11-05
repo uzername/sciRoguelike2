@@ -33,6 +33,10 @@ public class MapProcessor {
      * use this nice subroutine instead of crawling through data structures every time
      * when you need to get a MapTile by a set of specific coordinates
      * (method was previously researched at MapDisplay)
+     * @param fragmentCoord
+     * @param chunkCoord
+     * @param tileX
+     * @param tileY
      * @return MapTile
      */
     public static MapTile getMapTileByCoordinates(Integer fragmentCoord, Integer chunkCoord, Integer tileX, Integer tileY) {

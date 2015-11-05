@@ -124,20 +124,21 @@ public class ContextKbProcessor{
             }
             case MOVE_FORWARD: {
             //move character one square up
-            sciroguelike2.datastructs.Player.movePlayerUp();
+            //sciroguelike2.datastructs.Player.movePlayerUp();
+                sciroguelike2.datastructs.Player.processMovementTrigger(3);
             break;
             //do not change game state
             }
             case MOVE_BACK: {
-                sciroguelike2.datastructs.Player.movePlayerDown();
+                sciroguelike2.datastructs.Player.processMovementTrigger(7);
                 break;
             }
             case MOVE_LEFT: {
-                sciroguelike2.datastructs.Player.movePlayerLeft();
+                sciroguelike2.datastructs.Player.processMovementTrigger(1);
                 break;
             }
             case MOVE_RIGHT: {
-                sciroguelike2.datastructs.Player.movePlayerRight();
+                sciroguelike2.datastructs.Player.processMovementTrigger(5);
                 break;
             }
         }

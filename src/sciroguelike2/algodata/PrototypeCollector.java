@@ -5,6 +5,7 @@
  */
 package sciroguelike2.algodata;
 
+import sciroguelike2.algodata.triggers.GameTriggers;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -23,9 +24,9 @@ public class PrototypeCollector {
      * Load statically data about map tiles
      */
     public static void loadMapTilesData() {
-        mapTilesData.add(new MapTilePrototype(" ".charAt(0), Color.red, Color.blue, "empty"));
-        mapTilesData.add(new MapTilePrototype(".".charAt(0), Color.white, Color.black, "floor"));
-        MapTilePrototype wallPrototype = new MapTilePrototype("#".charAt(0), Color.white, Color.blue, "wall");
+        mapTilesData.add(new MapTilePrototype(" ".charAt(0), Color.red, Color.blue, "empty", GameTriggers.SIMPLESTOP));
+        mapTilesData.add(new MapTilePrototype(".".charAt(0), Color.white, Color.black, "floor", GameTriggers.SIMPLEMOVE));
+        MapTilePrototype wallPrototype = new MapTilePrototype("#".charAt(0), Color.white, Color.blue, "wall", GameTriggers.SIMPLESTOP);
         for (int i=0; i<wallPrototype.passSpeed.size(); i++) {
             wallPrototype.passSpeed.set(i, new Float(0.0)); 
         }
