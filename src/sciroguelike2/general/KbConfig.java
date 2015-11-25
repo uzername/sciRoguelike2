@@ -59,6 +59,10 @@ public class KbConfig {
                 new KeyProcessingStruct(java.awt.event.KeyEvent.VK_ENTER, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, sciroguelike2.algodata.GameStates.MAINMENU), 
                 GameActions.MAINMENU_ENTER
                        );
+        allKbConfig.put(
+                new KeyProcessingStruct(java.awt.event.KeyEvent.VK_S, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, sciroguelike2.algodata.GameStates.MAINGAME),
+                GameActions.MAINGAME_SAVE
+                       );
     }
     public GameActions getCorrespondingAction(KeyProcessingStruct inpKbData) {
         GameActions finalAction = GameActions.NULL_ACTION;

@@ -4,7 +4,9 @@ import sciroguelike2.algodata.PrototypeCollector;
 
 /**
  * player entity. The main Character of the game. Player is only one here.
- * Crude singleton. Contains: 
+ * It has been declared (in mind) as a Crude singleton, but sometimes it might have been used as static. 
+ * Somewhat later all 'static' features have been removed to make serialization better
+ * Contains: 
  * <ol>
  * <li>player movement routines</li> <li>other player routines</li>
  * <li>player characteristics: </li>
@@ -19,52 +21,52 @@ import sciroguelike2.algodata.PrototypeCollector;
  */
 public class Player {
     //current location of player
-    private static Integer currMapChunk;
-    private static Integer currMapFragment;
-    private static Integer mapChunkXCoord;
-    private static Integer mapChunkYCoord;
+    private Integer currMapChunk;
+    private Integer currMapFragment;
+    private Integer mapChunkXCoord;
+    private Integer mapChunkYCoord;
     
     //player display parameters
     public static java.awt.Color playerFgColor=java.awt.Color.WHITE;
     public static java.awt.Color playerBkgColor=java.awt.Color.BLACK;
     public static Character playerMainCharacter = '@';
     
-    private static boolean initialized=false;
+    private static transient boolean initialized=false;
     /**
      * used to detect walls. In case of wall player stops without losing a turn.
      * This variable might be put out of use after implementing a turn-based system
      * (player should take action with a minimal timelapse)
      */
-    private static boolean rejectPlayerMovement=false; 
+    private static transient boolean rejectPlayerMovement=false; 
     
-    private static Player playerEntity=null;
+    private static transient Player playerEntity=null;
     //retrieve coordinates of player
-    public static Integer getCurrMapChunk() {
+    public Integer getCurrMapChunk() {
         return currMapChunk;
     }
-    public static Integer getCurrMapFragment() {
+    public Integer getCurrMapFragment() {
         return currMapFragment;
     }
-    public static Integer getMapChunkXCoord() {
+    public Integer getMapChunkXCoord() {
         return mapChunkXCoord;
     }
-    public static Integer getMapChunkYCoord() {
+    public Integer getMapChunkYCoord() {
         return mapChunkYCoord;
     }
     private Player() {
-        
+        currMapChunk=0; currMapFragment=0;
+            mapChunkXCoord=0; mapChunkYCoord=0;
     }
     public static Player getPlayer() {
         if (initialized==false) {
             playerEntity = new Player();
             initialized = true; 
-            currMapChunk=0; currMapFragment=0;
-            mapChunkXCoord=0; mapChunkYCoord=0;
+            
         }
         return playerEntity;
     }
     
-    public static void printPlayerData() {
+    public void printPlayerData() {
         System.out.println("coords in mapchunk: ("+mapChunkXCoord+";"+mapChunkYCoord+");"+
                 "mapchunk number: "+currMapChunk+" Map fragment: "+currMapFragment);
     }
@@ -72,7 +74,7 @@ public class Player {
      * move player up on map. key handler! Should move it somewhere, but I don't know where
      * Changes player chunk coord, position and player fragment
      */
-    public static void movePlayerUp() {
+    public void movePlayerUp() {
         
         if (mapChunkYCoord<=0)  {
             //character stepped from the current mapChunk
@@ -92,7 +94,7 @@ public class Player {
     /**
      * move player down (to south).
      */
-    public static void movePlayerDown() {
+    public void movePlayerDown() {
         
         if (mapChunkYCoord==sciroguelike2.algodata.GeneralCoreData.ChunkHeight-1) {
             //change chunk
@@ -110,7 +112,7 @@ public class Player {
         }
         sciroguelike2.algomaps.MapDisplay.generalizedDraw();
     }
-    public static void movePlayerRight() {
+    public void movePlayerRight() {
         if (mapChunkXCoord>=sciroguelike2.algodata.GeneralCoreData.ChunkWidth-1) {
             System.out.println("changing chunk while moving right");
             Integer mvmntDirection = 5; //moving north
@@ -139,7 +141,7 @@ public class Player {
         //System.out.println("character goes right!");
         //printPlayerData();
     }
-    public static void movePlayerLeft() {
+    public void movePlayerLeft() {
         if (mapChunkXCoord==0) {
             System.out.println("changing chunk while moving left");
             Integer mvmntDirection = 1; //moving west
@@ -168,7 +170,7 @@ public class Player {
      * calls utilities from ProcessTrigger class. 
      * @param mvmntDir movement direction:  NW:2, N:3, NE:4, W:1, E:5, SW:8, S:7, SE:6
      */
-    public static void processMovementTrigger (Integer mvmntDir) {
+    public void processMovementTrigger (Integer mvmntDir) {
         //saving parameters of player here.
         //we'll probably need to save some states here and pass them as arguments while processing trigger
         Integer testFragment = currMapFragment;
@@ -245,7 +247,7 @@ public class Player {
      * wrapper for character movement
      * @param mvmntDir movement direction:  NW:2, N:3, NE:4, W:1, E:5, SW:8, S:7, SE:6
      */
-    public static void generalizeMovement(Integer mvmntDir) {
+    public void generalizeMovement(Integer mvmntDir) {
         //retrieving maptile in the direction of character movement
         //making actual movement
         switch(mvmntDir) {
@@ -266,5 +268,12 @@ public class Player {
                 break;
             }
         }
+    }
+    /**
+     * serialize to json and save to file
+     */
+    public static void saveAndWritePlayer() {
+        String jsonPlayer = sciroguelike2.algodata.GeneralCoreData.gson.toJson(Player.getPlayer());
+        System.out.println(jsonPlayer);
     }
 }

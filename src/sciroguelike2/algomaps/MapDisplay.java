@@ -28,10 +28,10 @@ public class MapDisplay {
         //we have index of current mapchunk in player's class
         //draw this mapchunk, centering it on screen.
         //System.out.println("===Starting draw map===");
-        Integer playerFragmentMapIndex=sciroguelike2.datastructs.Player.getCurrMapFragment();
-        Integer playerChunkMapIndex=sciroguelike2.datastructs.Player.getCurrMapChunk();
-        Integer playerChunkMapXCoord = sciroguelike2.datastructs.Player.getMapChunkXCoord();
-        Integer playerChunkMapYCoord = sciroguelike2.datastructs.Player.getMapChunkYCoord();
+        Integer playerFragmentMapIndex=sciroguelike2.datastructs.Player.getPlayer().getCurrMapFragment();
+        Integer playerChunkMapIndex=sciroguelike2.datastructs.Player.getPlayer().getCurrMapChunk();
+        Integer playerChunkMapXCoord = sciroguelike2.datastructs.Player.getPlayer().getMapChunkXCoord();
+        Integer playerChunkMapYCoord = sciroguelike2.datastructs.Player.getPlayer().getMapChunkYCoord();
         //defining the coordinates to draw. Screen may contain map tiles from  
         //different Fragments and Chunks
         Integer startFragment = playerFragmentMapIndex;
@@ -183,8 +183,8 @@ public class MapDisplay {
         //render player
         //general.algomaps.MapDisplay.globalCsi.print(playerPositionX, playerPositionY, Player.playerMainCharacter, Player.playerMainColor);
         //    general.algomaps.MapDisplay.globalCsi.refresh();
-        GeneralCoreData.foregroundpane.put(playerPositionX, playerPositionY, Player.playerMainCharacter, Player.playerFgColor );
-        GeneralCoreData.backgroundpane.put(playerPositionX, playerPositionY, Player.playerBkgColor);
+        GeneralCoreData.foregroundpane.put(playerPositionX, playerPositionY, Player.getPlayer().playerMainCharacter, Player.getPlayer().playerFgColor );
+        GeneralCoreData.backgroundpane.put(playerPositionX, playerPositionY, Player.getPlayer().playerBkgColor);
         
     }
     /**

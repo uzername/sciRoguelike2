@@ -25,7 +25,7 @@ public class ProcessTrigger {
      * @param contextPass direction of player's movement (used as Integer)
      */
     private void moveCharTrigger (Object contextPass) {
-        sciroguelike2.datastructs.Player.generalizeMovement((Integer) contextPass);
+        sciroguelike2.datastructs.Player.getPlayer().generalizeMovement((Integer) contextPass);
     }
     
     /**

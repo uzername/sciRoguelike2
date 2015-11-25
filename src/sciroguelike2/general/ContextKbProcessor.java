@@ -56,7 +56,7 @@ public class ContextKbProcessor{
                 } else {
                     if (currGameState==sciroguelike2.algodata.GameStates.MAINGAME) {
                         //move character one square up
-                        sciroguelike2.datastructs.Player.movePlayerUp();
+                        sciroguelike2.datastructs.Player.getPlayer().movePlayerUp();
                         //do not change game state
                     }
                 }
@@ -69,7 +69,7 @@ public class ContextKbProcessor{
                     //do not change state, we're still in main menu
                 } else {
                     if (currGameState==sciroguelike2.algodata.GameStates.MAINGAME) {
-                    sciroguelike2.datastructs.Player.movePlayerDown();
+                    sciroguelike2.datastructs.Player.getPlayer().movePlayerDown();
                     }
                 }
                 break;
@@ -82,13 +82,13 @@ public class ContextKbProcessor{
             }
             case (KeyEvent.VK_LEFT): {
                 if (currGameState==sciroguelike2.algodata.GameStates.MAINGAME) {
-                    sciroguelike2.datastructs.Player.movePlayerLeft();
+                    sciroguelike2.datastructs.Player.getPlayer().movePlayerLeft();
                 }
                 break;
             }
             case (KeyEvent.VK_RIGHT): {
                 if (currGameState==sciroguelike2.algodata.GameStates.MAINGAME) {
-                    sciroguelike2.datastructs.Player.movePlayerRight();
+                    sciroguelike2.datastructs.Player.getPlayer().movePlayerRight();
                 }
                 break;
             }
@@ -125,20 +125,24 @@ public class ContextKbProcessor{
             case MOVE_FORWARD: {
             //move character one square up
             //sciroguelike2.datastructs.Player.movePlayerUp();
-                sciroguelike2.datastructs.Player.processMovementTrigger(3);
+                sciroguelike2.datastructs.Player.getPlayer().processMovementTrigger(3);
             break;
             //do not change game state
             }
             case MOVE_BACK: {
-                sciroguelike2.datastructs.Player.processMovementTrigger(7);
+                sciroguelike2.datastructs.Player.getPlayer().processMovementTrigger(7);
                 break;
             }
             case MOVE_LEFT: {
-                sciroguelike2.datastructs.Player.processMovementTrigger(1);
+                sciroguelike2.datastructs.Player.getPlayer().processMovementTrigger(1);
                 break;
             }
             case MOVE_RIGHT: {
-                sciroguelike2.datastructs.Player.processMovementTrigger(5);
+                sciroguelike2.datastructs.Player.getPlayer().processMovementTrigger(5);
+                break;
+            }
+            case MAINGAME_SAVE: {
+                sciroguelike2.datastructs.Player.saveAndWritePlayer();
                 break;
             }
         }

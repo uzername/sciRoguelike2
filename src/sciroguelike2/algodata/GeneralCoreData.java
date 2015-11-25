@@ -1,5 +1,6 @@
 package sciroguelike2.algodata;
 
+import com.google.gson.Gson;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
@@ -35,6 +36,8 @@ public class GeneralCoreData {
      * number of fragments in AllMaps
      */
     public static Integer numberFragments = 9;
+    //semiautomatic serializer and deserializer
+    public static Gson gson = new Gson();
     //===Graphics===
     public static String currentFontName = "resources/TerminalVector.ttf";
     public static SquidPanel foregroundpane; //pane where drawing all symbols is done
